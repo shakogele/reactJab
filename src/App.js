@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -22,11 +23,11 @@ class App extends Component {
         }
       ]
   };
-  
+
   changeNameHandler = (event, index) => {
-    const persons = [...this.state.persons];
-    persons[index].name = event.target.value;
-    this.setState({persons, persons});
+    const personsArr = [...this.state.persons];
+    personsArr[index].name = event.target.value;
+    this.setState({persons: personsArr});
   };
 
   togglePersonsHandler = () => {
@@ -35,9 +36,9 @@ class App extends Component {
     });
   };
   deletePersonHandler = (personIndex) => {
-    const persons = [...this.state.persons];
-    persons.splice(personIndex, 1);
-    this.setState({persons, persons});
+    const personsArr = [...this.state.persons];
+    personsArr.splice(personIndex, 1);
+    this.setState({persons: personsArr});
   }
 
   render() {
@@ -47,9 +48,22 @@ class App extends Component {
       border: '1px solid teal',
       padding: '8px',
       color: 'teal',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      ':hover': {
+          backgroundColor: 'teal',
+          color: 'white'
+      }
     };
     let persons = null;
+    const classes = [];
+
+    if (this.state.persons.length <= 2) {
+      classes.push('bold');
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push('red');
+    }
+
     if (this.state.showPersons) {
       persons = (
           <div>
@@ -67,7 +81,7 @@ class App extends Component {
     }
     return (
       <div className="App">
-          <h1 className="App-title">Shakogele</h1>
+          <h1 className={classes.join(' ')}>Shakogele</h1>
           <p>
             <button
               style = {style}
@@ -79,4 +93,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Radium(App);

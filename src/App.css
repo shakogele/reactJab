@@ -1,0 +1,10 @@
+.App{
+  text-align: center;
+}
+.bold{
+  font-weight: bold;
+}
+.red{
+  background-color: red;
+  color: white;
+}
