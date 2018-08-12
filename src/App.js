@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorCatcher from './ErrorCatcher/ErrorCatcher';
 
 class App extends Component {
   state = {
@@ -63,12 +64,12 @@ class App extends Component {
       persons = (
           <div>
               {this.state.persons.map((person, index) => {
-                  return <Person
+                  return <ErrorCatcher key={person.id}><Person
                     click={this.deletePersonHandler.bind(this, index)}
                     changed={(event) => {this.changeNameHandler(event, index); }}
                     name={person.name}
                     age={person.age}
-                    key={person.id}/>
+                    key={person.id}/></ErrorCatcher>
                 })
               }
           </div>
