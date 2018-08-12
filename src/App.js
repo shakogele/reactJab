@@ -7,62 +7,35 @@ class App extends Component {
       persons: [
         {
           name: 'Shalva',
-          age: 29
+          age: 29,
+          id: 0
         },
         {
           name: 'Demetre',
-          age: 5
+          age: 5,
+          id: 3
         },
         {
           name: 'Gabriel',
-          age: 3
+          age: 3,
+          id: 5
         }
       ]
   };
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        {
-          name: newName,
-          age: 30
-        },
-        {
-          name: 'Demetre',
-          age: 6
-        },
-        {
-          name: 'Gabriel',
-          age: 4
-        }
-      ]
-    });
+  
+  changeNameHandler = (event, index) => {
+    const persons = [...this.state.persons];
+    persons[index].name = event.target.value;
+    this.setState({persons, persons});
   };
-  changeNameHandler = (event) => {
-    this.setState({
-      persons: [
-        {
-          name: 'Shalva',
-          age: 30
-        },
-        {
-          name: event.target.value,
-          age: 6
-        },
-        {
-          name: 'Gabriel',
-          age: 4
-        }
-      ],
-      showPersons: false
-    })
-  };
+
   togglePersonsHandler = () => {
     this.setState({
       showPersons: !this.state.showPersons
     });
   };
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.persons;
+    const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons, persons});
   }
@@ -83,8 +56,10 @@ class App extends Component {
               {this.state.persons.map((person, index) => {
                   return <Person
                     click={this.deletePersonHandler.bind(this, index)}
+                    changed={(event) => {this.changeNameHandler(event, index); }}
                     name={person.name}
-                    age={person.age}/>
+                    age={person.age}
+                    key={person.id}/>
                 })
               }
           </div>
